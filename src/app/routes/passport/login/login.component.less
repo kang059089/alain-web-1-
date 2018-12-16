@@ -1,0 +1,121 @@
+@import '~@delon/theme/styles/default';
+:host {
+  ::ng-deep {
+    .passport__bg {
+      padding: 48px;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      background-color: transparent;
+      background-position: center center;
+      background-size: cover;
+    }
+    .passport__bg-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: #000;
+      opacity: .4;
+    }
+    .text {
+      position: relative;
+      padding: 0 64px;
+      color: #fff;
+    }
+    h1 {
+      font-size: 56px;
+      font-weight: 900;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+    p {
+      font-size: 22px;
+      line-height: 32px;
+    }
+    .passport__form {
+      padding: 32px;
+      height: 100%;
+      background-color: #fff;
+    }
+    .passport__form-logo {
+      text-align: center;
+      height: 32px;
+      margin-top: 5%;
+    }
+    .passport__form-logo img {
+      max-height: 100%;
+    }
+    .passport__form-title {
+      margin: 16px 0;
+      color: #bfbfbf;
+      text-align: center;
+    }
+    .captcha-col {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+    .icon {
+      font-size: 20px;
+      color: rgba(0, 0, 0, 0.2);
+      // margin-left: 10px;
+      // vertical-align: middle;
+      cursor: pointer;
+      transition: color 0.3s;
+      &:hover {
+        color: @primary-color;
+      }
+    }
+    .other {
+      text-align: right;
+      // margin-top: 24px;
+      line-height: 22px;
+      nz-tooltip {
+        vertical-align: middle;
+      }
+      .register {
+        float: right;
+      }
+    }
+  }
+  // display: block;
+  // width: 368px;
+  // margin: 0 auto;
+  // ::ng-deep {
+  //   .ant-tabs .ant-tabs-bar {
+  //     border-bottom: 0;
+  //     margin-bottom: 24px;
+  //     text-align: center;
+  //   }
+  //   .ant-tabs-tab {
+  //     font-size: 16px;
+  //     line-height: 24px;
+  //   }
+  //   .ant-input-affix-wrapper .ant-input:not(:first-child) {
+  //     padding-left: 34px;
+  //   }
+  //   .icon {
+  //     font-size: 24px;
+  //     color: rgba(0, 0, 0, 0.2);
+  //     margin-left: 16px;
+  //     vertical-align: middle;
+  //     cursor: pointer;
+  //     transition: color 0.3s;
+  //     &:hover {
+  //       color: @primary-color;
+  //     }
+  //   }
+  //   .other {
+  //     text-align: left;
+  //     margin-top: 24px;
+  //     line-height: 22px;
+  //     nz-tooltip {
+  //       vertical-align: middle;
+  //     }
+  //     .register {
+  //       float: right;
+  //     }
+  //   }
+  // }
+}
