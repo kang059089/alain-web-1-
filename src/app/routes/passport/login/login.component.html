@@ -94,6 +94,7 @@
   </div>
   <h3 class="passport__form-title">登录</h3>
   <form nz-form se-container [formGroup]="form" (ngSubmit)="submit()" labelWidth="150" nzLayout="vertical">
+    <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
     <div style="margin-left: 0px; margin-right: 0px; margin-top: 5%;" [hidden]="loginMode.isUser">
       <se label="用户名" error="用户名必须是英文字母和数字组成的4-16位字符，以字母开头！">
         <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-user">
@@ -102,7 +103,7 @@
       </se>
       <se label="密码" error="密码必须是英文字母和数字组成的4-10位字符！">
         <nz-input-group nzSize="large" nzPrefixIcon="anticon anticon-lock">
-          <input nz-input required type="password" nzSize="large" formControlName="password" placeholder="password: ng-alain.com">
+          <input nz-input required type="password" nzSize="large" formControlName="password" placeholder="password: admin or ng-alain.com">
         </nz-input-group>
       </se>
       <se>

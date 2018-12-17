@@ -13,6 +13,7 @@ import {
 import { ReuseTabService } from '@delon/abc';
 import { environment } from '@env/environment';
 import { StartupService } from '@core/startup/startup.service';
+import { Urls } from 'app/util/url';
 
 @Component({
   selector: 'passport-login',
@@ -104,7 +105,6 @@ export class UserLoginComponent implements OnDestroy {
   interval$: any;
 
   getCaptcha() {
-    console.log(this.mobile);
     if (this.mobile.invalid) {
       this.mobile.markAsDirty({ onlySelf: true });
       this.mobile.updateValueAndValidity({ onlySelf: true });
@@ -138,25 +138,27 @@ export class UserLoginComponent implements OnDestroy {
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
     this.http
-      .post('api/authenticate?_allow_anonymous=true', {
+      .post(Urls.login + '?_allow_anonymous=true', {
         username: this.userName.value,
         password: this.password.value,
         rememberMe: this.remember.value
       })
       .subscribe((res: any) => {
-        // tslint:disable-next-line:prefer-const
-        const tokena: ITokenModel = {token: ''};
-        tokena.token = res.id_token;
         // if (res.msg !== 'ok') {
         //   this.error = res.msg;
         //   return;
         // }
+        // 用户信息：包括姓名、头像、邮箱地址
+        this.settingsService.setUser(res);
         // 清空路由复用信息
         this.reuseTabService.clear();
         // 设置用户Token信息
-        this.tokenService.set(tokena);
+        this.tokenService.set(res);
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.load().then(() => this.router.navigate(['/']));
+      }, (error) => {
+        console.log(error);
+        this.error = error;
       });
   }
 
