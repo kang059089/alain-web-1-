@@ -1,4 +1,4 @@
-import { SettingsService, _HttpClient } from '@delon/theme';
+import { SettingsService, _HttpClient, MenuService } from '@delon/theme';
 import { Component, OnDestroy, Inject, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,6 +14,7 @@ import { ReuseTabService } from '@delon/abc';
 import { environment } from '@env/environment';
 import { StartupService } from '@core/startup/startup.service';
 import { Urls } from 'app/util/url';
+import { ACLService } from '@delon/acl';
 
 @Component({
   selector: 'passport-login',
@@ -51,6 +52,8 @@ export class UserLoginComponent implements OnDestroy {
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,
+    private menuService: MenuService,
+    private aclService: ACLService,
     public msg: NzMessageService,
     private router: Router,
     private settingsService: SettingsService,
@@ -144,18 +147,27 @@ export class UserLoginComponent implements OnDestroy {
         rememberMe: this.remember.value
       })
       .subscribe((res: any) => {
+        console.log(res);
         // if (res.msg !== 'ok') {
         //   this.error = res.msg;
         //   return;
         // }
         // 用户信息：包括姓名、头像、邮箱地址
-        this.settingsService.setUser(res);
+        this.settingsService.setUser(res.user);
         // 清空路由复用信息
         this.reuseTabService.clear();
         // 设置用户Token信息
         this.tokenService.set(res);
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
-        this.startupSrv.load().then(() => this.router.navigate(['/']));
+        this.startupSrv.load().then(() => {
+          // ACL：设置权限为全量
+        this.aclService.setFull(true);
+        // this.aclService.setFull(false);
+        // this.aclService.set({ role: ['nav', 'forecast', 'dataManagement', 'systemManage', 'systemSetup',
+        // 'dashboard', 'loadForecasting', 'loadCorrection', 'loadQuery'
+        // ] });
+          this.router.navigate(['/']);
+        });
       }, (error) => {
         console.log(error);
         this.error = error;

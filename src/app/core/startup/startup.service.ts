@@ -36,11 +36,11 @@ export class StartupService {
       this.httpClient.get(Urls.startupApp)
     ).pipe(
       // 接收其他拦截器后产生的异常消息
-      catchError((appData) => {
+      catchError(([appData]) => {
           resolve(null);
-          return appData;
+          return [appData];
       })
-    ).subscribe((appData) => {
+    ).subscribe(([appData]) => {
       // application data
       const res: any = appData;
       // 应用信息：包括站点名、描述、年份
@@ -50,9 +50,9 @@ export class StartupService {
       // ACL：设置权限为全量
       this.aclService.setFull(true);
       // 初始化菜单
-      // this.menuService.add(res.menu);
+      this.menuService.add(res.menuList);
       // 设置页面标题的后缀
-      this.titleService.suffix = res.name;
+      this.titleService.suffix = res.app.name;
     },
     () => { },
     () => {
