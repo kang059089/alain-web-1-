@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <div class="modal-title">查看 {{ title }}</div>
+</div>
+<div sv-container *ngIf="menuParam" col="2" style="padding-bottom: 38px;">
+  <sv label="上级菜单">{{ menuParam.menu.pname }}</sv>
+  <sv label="菜单名称">{{ menuParam.menu.text }}</sv>
+</div>
+<div sv-container *ngIf="menuParam" col="2" style="padding-bottom: 38px;">
+  <sv label="访问地址">{{ menuParam.menu.link }}</sv>
+  <sv label="菜单顺序">{{ menuParam.menu.sort }}</sv>
+</div>
+<div sv-container *ngIf="menuParam" col="2" style="padding-bottom: 38px;">
+  <sv label="修改人">{{ menuParam.menu.updateName }}</sv>
+  <sv label="修改时间">{{ menuParam.menu.updateDate | date:'yyyy年MM月dd日 HH:mm'}}</sv>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>
+  
