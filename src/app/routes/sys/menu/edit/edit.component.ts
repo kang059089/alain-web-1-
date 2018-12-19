@@ -91,15 +91,19 @@ export class SysMenuEditComponent implements OnInit {
     // 判断加载是否完成（true: 加载中；false: 加载完成）
     this.isLoading = true;
     menu.pid = this.pid;
-    menu.icon.value = this.icon;
+    // menu.icon = this.icon;
     menu.group = menu.pid == null ? true : false;
     if (menu.id !== undefined) {
+      menu.icon.value = this.icon;
       this.http.put(this.apiUrl.menus, menu).subscribe((res: any) => {
         this.onSuccess(res, '修改成功');
       }, (error) => {
         this.onError(error, '修改失败');
       });
     } else {
+      const icon = {value: this.icon};
+      menu.icon = {value: this.icon};
+      console.log(menu);
       this.http.post(this.apiUrl.menus, menu).subscribe((res: any) => {
         this.onSuccess(res, '创建菜单成功');
       }, (error) => {

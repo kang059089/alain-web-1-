@@ -71,6 +71,7 @@ export class SysMenuComponent implements OnInit {
     const pageParam: PageParam = { page: this.pi, size: this.ps };
     // 获取菜单列表树形数据信息
     this.http.get(this.apiUrl.menuTreeList, pageParam).subscribe((res: any) => {
+      console.log(res);
       this.menuTreeListData = res.list;
       this.total = res.total;
       this.menuTreeListData.forEach(item => {
