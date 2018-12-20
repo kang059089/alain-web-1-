@@ -1,0 +1,33 @@
+<button nz-button (click)="openEdit()" [nzType]="'primary'" style="margin-bottom: 8px;">
+  <i nz-icon type="plus"></i>
+  <span>新建</span>
+</button>
+<nz-table #dictTypeTable [nzData]="this.dict.children" [nzShowTotal]="totalTemplate" nzSize="middle">
+  <thead>
+    <tr>
+      <th nzWidth="10%" class="text-center">序号</th>   
+      <th nzWidth="20%" class="text-center">类型名称</th>
+      <th nzWidth="20%" class="text-center">类型编码</th>
+      <th nzWidth="20%" class="text-center">类型顺序</th>
+      <th nzWidth="30%" class="text-center">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template #totalTemplate let-total>
+        共 {{total}} 条
+    </ng-template>
+    <tr *ngFor="let item of dictTypeTable.data; let i = index">
+      <td class="text-center">{{i + 1}}</td>
+      <td class="text-center">{{item.label}}</td>
+      <td class="text-center">{{item.value}}</td>
+      <td class="text-center">{{item.sort}}</td>
+      <td class="text-center">
+        <a class="text-gold-light" (click)="openView(item)"><i nz-icon type="eye" theme="outline"></i>查看</a><nz-divider nzType="vertical"></nz-divider>
+        <a class="text-blue-light" [acl]="'dictTypeEdit'" (click)="openEdit(item)"><i nz-icon type="edit" theme="outline"></i>编辑</a><nz-divider nzType="vertical"></nz-divider>
+        <nz-popconfirm (nzOnConfirm)="delDictType(item)" [nzTitle]="'确认删除此类型吗？'">
+          <a class="text-red-light" [acl]="'dictTypeDel'" nz-popconfirm><i nz-icon type="delete" theme="outline"></i>删除</a>
+        </nz-popconfirm>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

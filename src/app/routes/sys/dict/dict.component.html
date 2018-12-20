@@ -1,0 +1,41 @@
+<page-header></page-header>
+<nz-card nzTitle="字典列表">
+    <div nz-row nzGutter="24" style="margin-bottom: 8px;">
+        <div nz-col nzMd="12" nzLg="12">
+            <button nz-button [acl]="'dictAdd'" (click)="openEdit()" [nzType]="'primary'" style="margin-bottom: 8px;">
+                <i nz-icon type="plus"></i>
+                <span>新建</span>
+            </button>
+        </div>
+        <div nz-col nzMd="12" nzLg="12" class="text-right">
+            <sf #sf mode="search" [schema]="searchSchema" (formSubmit)="searchDict($event)" (formReset)="resetDict($event)"></sf>
+        </div>
+    </div>
+    <nz-table #dictTable [nzData]="dictData" nzSize="middle" [nzPageIndex]="pi" [nzPageSize]="ps"  [nzTotal]="total" [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageIndexChange($event)" [nzFrontPagination]=false>
+      <thead>
+        <tr>
+          <th nzWidth="10%" class="text-center">序号</th>
+          <th nzWidth="25%" class="text-center">字典名称</th>
+          <th nzWidth="25%" class="text-center">字典类型</th>
+          <th nzWidth="40%" class="text-center">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-template #totalTemplate let-total>
+            共 {{total}} 条
+        </ng-template>
+        <tr *ngFor="let item of dictTable.data; let i = index">
+          <td class="text-center">{{i + 1}}</td>
+          <td class="text-center">{{item.name}}</td>
+          <td class="text-center">{{item.type}}</td>
+          <td class="text-center">
+            <a class="text-blue-light" [acl]="'dictEdit'" (click)="openEdit(item)"><i nz-icon type="edit" theme="outline"></i>编辑</a><nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm (nzOnConfirm)="delDict(item)" [nzTitle]="'确认删除此字典吗？'">
+                <a class="text-red-light" [acl]="'dictDel'" nz-popconfirm><i nz-icon type="delete" theme="outline"></i>删除</a><nz-divider nzType="vertical"></nz-divider>
+            </nz-popconfirm>            
+            <a class="text-green-light" (click)="openDictType(item)"><i nz-icon type="search" theme="outline"></i>查看类型</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+</nz-card>

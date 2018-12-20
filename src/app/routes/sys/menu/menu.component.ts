@@ -25,8 +25,7 @@ export interface MenuParam {
 
 @Component({
   selector: 'app-sys-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.less']
+  templateUrl: './menu.component.html'
 })
 export class SysMenuComponent implements OnInit {
   // 菜单访问接口
@@ -71,7 +70,6 @@ export class SysMenuComponent implements OnInit {
     const pageParam: PageParam = { page: this.pi, size: this.ps };
     // 获取菜单列表树形数据信息
     this.http.get(this.apiUrl.menuTreeList, pageParam).subscribe((res: any) => {
-      console.log(res);
       this.menuTreeListData = res.list;
       this.total = res.total;
       this.menuTreeListData.forEach(item => {

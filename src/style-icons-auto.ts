@@ -6,6 +6,7 @@
 import {
   AppstoreOutline,
   ArrowDownOutline,
+  BarsOutline,
   CloudOutline,
   CopyrightOutline,
   EditOutline,
@@ -29,13 +30,17 @@ import {
   TeamOutline,
   ToolOutline,
   UserOutline,
-  WechatOutline
+  WechatOutline,
+  ClusterOutline,
+  TagsOutline
 } from '@ant-design/icons-angular/icons';
 
 export const ICONS_AUTO = [
   AppstoreOutline,
   ArrowDownOutline,
+  BarsOutline,
   CloudOutline,
+  ClusterOutline,
   CopyrightOutline,
   EditOutline,
   EyeOutline,
@@ -55,6 +60,7 @@ export const ICONS_AUTO = [
   SearchOutline,
   SettingOutline,
   StarOutline,
+  TagsOutline,
   TeamOutline,
   ToolOutline,
   UserOutline,
