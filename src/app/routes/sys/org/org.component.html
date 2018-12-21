@@ -1,0 +1,70 @@
+<page-header></page-header>
+<div nz-row nzGutter="24">
+  <div nz-col nzMd="24" nzLg="5">
+    <nz-card nzTitle="我的机构">
+      <nz-input-group [nzSuffix]="suffixIcon">
+        <input type="text" nz-input placeholder="Search" [(ngModel)]="treeDsc">
+      </nz-input-group>
+      <ng-template #suffixIcon>
+        <i nz-icon type="search"></i>
+      </ng-template>
+      <div class="scrollbar" style="height: 550px; width: 220px;">
+        <nz-tree #treeCom
+          [nzData]="orgTree"
+          [nzSearchValue]="treeDsc"
+          nzShowIcon="true"
+          (nzClick)="clickTreeDsc($event)">
+        </nz-tree>
+      </div>
+    </nz-card>
+  </div>
+  <div nz-col nzMd="24" nzLg="19">
+    <nz-card nzTitle="机构列表">
+      <div nz-row nzGutter="24" style="margin-bottom: 8px;">
+        <div nz-col nzMd="12" nzLg="12">
+          <button nz-button [acl]="'orgAdd'" (click)="openEdit()" [nzType]="'primary'" style="margin-bottom: 8px;">
+            <i nz-icon type="plus"></i>
+             <span>新建</span>
+          </button>
+        </div>
+        <div nz-col nzMd="12" nzLg="12" class="text-right">
+          <sf #orgSf mode="search" [schema]="searchSchema" (formSubmit)="searchOrg($event)" (formReset)="resetOrg($event)"></sf>
+        </div>
+      </div>
+      <nz-table #orgTable [nzData]="orgData" nzSize="middle" [nzPageIndex]="pi" [nzPageSize]="ps"  [nzTotal]="total" [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageIndexChange($event)" [nzFrontPagination]=false>
+        <thead>
+          <tr>
+            <th class="text-center">序号</th>
+            <th class="text-center">机构名称</th>
+            <th class="text-center">机构编码</th>
+            <th class="text-center">机构类型</th>
+            <th class="text-center">电话号码</th>
+            <th class="text-center">地址</th>
+            <th class="text-center">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+            <ng-template #totalTemplate let-total>
+              共 {{total}} 条
+            </ng-template>
+          <tr *ngFor="let item of orgTable.data; let i = index">
+            <td class="text-center">{{i + 1}}</td>
+            <td class="text-center">{{item.title}}</td>
+            <td class="text-center">{{item.code}}</td>
+            <td class="text-center">{{item.dictOrgType.label}}</td>
+            <td class="text-center">{{item.telephone}}</td>
+            <td class="text-center">{{item.address}}</td>
+            <td class="text-center">
+              <a class="text-gold-light" (click)="openView(item)"><i nz-icon type="eye" theme="outline"></i>查看</a><nz-divider nzType="vertical"></nz-divider>
+              <a class="text-blue-light" [acl]="'orgEdit'" (click)="openEdit(item)"><i nz-icon type="edit" theme="outline"></i>编辑</a><nz-divider nzType="vertical"></nz-divider>
+              <nz-popconfirm (nzOnConfirm)="delOrg(item)" [nzTitle]="'确认删除此机构及其子机构吗？'">
+                <a class="text-red-light" [acl]="'orgDel'" nz-popconfirm><i nz-icon type="delete" theme="outline"></i>删除</a>
+              </nz-popconfirm>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </nz-card>
+  </div>
+</div>
+

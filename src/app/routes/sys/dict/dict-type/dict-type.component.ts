@@ -78,7 +78,7 @@ export class SysDictTypeComponent implements OnInit {
     });
   }
 
-  // 新增字典类型后，根据sort重新排序
+  // 新增、编辑字典类型后，根据sort重新排序
   compare(obj1: any, obj2: any) {
     let val1 = obj1.sort;
     let val2 = obj2.sort;

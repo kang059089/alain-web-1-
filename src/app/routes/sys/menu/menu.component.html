@@ -11,7 +11,7 @@
         <sf #menuSf mode="search" [schema]="searchSchema" (formSubmit)="searchMenu($event)" (formReset)="resetMenu($event)"></sf>
       </div>
   </div>
-  <nz-table #menuTable [nzData]="menuTreeListData" nzSize="middle" [nzPageIndex]="pi" [nzPageSize]="ps"  [nzTotal]="total" [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageIndexChange($event)" [nzFrontPagination]=false >
+  <nz-table #menuTable [nzData]="menuTreeListData" nzSize="middle" [nzPageIndex]="pi" [nzPageSize]="ps"  [nzTotal]="total" [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageIndexChange($event)" [nzFrontPagination]=false>
     <thead>
       <tr>
         <th class="text-center">菜单名称</th>

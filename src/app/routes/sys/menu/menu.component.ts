@@ -123,7 +123,7 @@ export class SysMenuComponent implements OnInit {
 
   // 查看菜单
   openView(menu: any = {}) {
-    // 向查看菜单子组件传递参数（menu: 选中编辑的菜单）
+    // 向查看菜单子组件传递参数（menu: 选中的菜单）
     const menuParam: MenuParam = { menu: menu };
     this.modal
       .create(SysMenuViewComponent, { menuParam })
