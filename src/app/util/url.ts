@@ -25,4 +25,7 @@ export const Urls = {
     aclMenuTree: host + '/aclMenuTree', // 获取权限树结构接口
     buttons: host + '/buttons', // 权限按钮操作接口(增加、修改、删除)
 
+    roleTree: host + '/roleTree', // 获取角色树结构接口
+    roles: host + '/roles', // 角色操作接口(增加、修改、删除)
+
 };

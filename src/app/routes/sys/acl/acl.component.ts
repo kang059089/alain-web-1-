@@ -68,7 +68,7 @@ export class SysAclComponent implements OnInit {
     if (node) {
         this.title = '编辑 ' + node.origin.title + ' 按钮权限';
         this.validateForm.setValue({
-          id: node.origin.key,
+          id: node.origin.id,
           name : node.origin.title,
           acl: node.origin.acl,
           sort: node.origin.sort,
@@ -92,7 +92,7 @@ export class SysAclComponent implements OnInit {
         this.onError(error, '修改失败', event);
       });
     } else {
-      value.menuPid = this.node.origin.key;
+      value.menuPid = this.node.origin.id;
       this.http.post(this.apiUrl.buttons, value).subscribe((res: any) => {
         this.onSuccess(res, '创建权限按钮成功', event);
       }, (error) => {
@@ -104,7 +104,7 @@ export class SysAclComponent implements OnInit {
   // 删除权限按钮
   aclDel(event: any, node: any) {
     this.dropdown.close();
-    this.http.delete(this.apiUrl.buttons + '/' + `${node.origin.key}`)
+    this.http.delete(this.apiUrl.buttons + '/' + `${node.origin.id}`)
     .subscribe((res: any) => {
       this.onSuccess(res, '删除成功', event);
     }, (error) => {
