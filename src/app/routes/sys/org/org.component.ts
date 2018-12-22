@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent, STPage } from '@delon/abc';
+import { STPage } from '@delon/abc';
 import { SFSchema } from '@delon/form';
 import { Urls } from 'app/util/url';
 import { PageParam } from 'app/model/pageParam';
@@ -37,7 +37,6 @@ export class SysOrgComponent implements OnInit {
   orgTree: any[] = []; // 返回左侧组织机构树
   orgDictType: any; // 返回组织机构类型字典
   treeDsc: any; // 左侧搜索框输入参数（组织机构名或机构编码）
-  bodyStyle: any; // 为左侧树结构添加滚动条
   // sf配置
   searchSchema: SFSchema = {
     properties: {
@@ -55,7 +54,6 @@ export class SysOrgComponent implements OnInit {
     public msgSrv: NzMessageService) { }
 
   ngOnInit() {
-    this.bodyStyle = {height: '628.66px', overflow: 'auto'};
     this.getData();
   }
 

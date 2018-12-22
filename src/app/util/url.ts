@@ -22,4 +22,7 @@ export const Urls = {
 
     dictTypes: host + '/dict-types', // 字典类型操作接口(增加、修改、删除)
 
+    aclMenuTree: host + '/aclMenuTree', // 获取权限树结构接口
+    buttons: host + '/buttons', // 权限按钮操作接口(增加、修改、删除)
+
 };

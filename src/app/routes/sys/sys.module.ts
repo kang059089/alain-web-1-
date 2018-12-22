@@ -12,11 +12,13 @@ import { SysDictEditComponent } from './dict/edit/edit.component';
 import { SysDictTypeComponent } from './dict/dict-type/dict-type.component';
 import { SysDictTypeEditComponent } from './dict/dict-type/edit/edit.component';
 import { SysDictTypeViewComponent } from './dict/dict-type/view/view.component';
+import { SysAclComponent } from './acl/acl.component';
 
 const COMPONENTS = [
   SysMenuComponent,
   SysOrgComponent,
-  SysDictComponent];
+  SysDictComponent,
+  SysAclComponent];
 const COMPONENTS_NOROUNT = [
   SysMenuViewComponent,
   SysMenuEditComponent,

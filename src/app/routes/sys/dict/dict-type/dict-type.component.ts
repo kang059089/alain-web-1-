@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NzModalRef, NzMessageService, NzDrawerRef } from 'ng-zorro-antd';
+import { NzMessageService, NzDrawerRef } from 'ng-zorro-antd';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { Urls } from 'app/util/url';
 import { SysDictTypeEditComponent } from './edit/edit.component';
-import { PageParam } from 'app/model/pageParam';
 import { SysDictTypeViewComponent } from './view/view.component';
 
 export interface DictTypeParam {
