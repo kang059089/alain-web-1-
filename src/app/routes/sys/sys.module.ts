@@ -14,13 +14,17 @@ import { SysDictTypeEditComponent } from './dict/dict-type/edit/edit.component';
 import { SysDictTypeViewComponent } from './dict/dict-type/view/view.component';
 import { SysAclComponent } from './acl/acl.component';
 import { SysRoleComponent } from './role/role.component';
+import { SysUserComponent } from './user/user.component';
+import { SysUserEditComponent } from './user/edit/edit.component';
+import { SysUserViewComponent } from './user/view/view.component';
 
 const COMPONENTS = [
   SysMenuComponent,
   SysOrgComponent,
   SysDictComponent,
   SysAclComponent,
-  SysRoleComponent];
+  SysRoleComponent,
+  SysUserComponent];
 const COMPONENTS_NOROUNT = [
   SysMenuViewComponent,
   SysMenuEditComponent,
@@ -29,7 +33,9 @@ const COMPONENTS_NOROUNT = [
   SysDictEditComponent,
   SysDictTypeComponent,
   SysDictTypeEditComponent,
-  SysDictTypeViewComponent];
+  SysDictTypeViewComponent,
+  SysUserEditComponent,
+  SysUserViewComponent];
 
 @NgModule({
   imports: [

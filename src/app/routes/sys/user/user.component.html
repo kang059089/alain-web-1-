@@ -1,0 +1,54 @@
+<page-header></page-header>
+<nz-card>
+  <div nz-row nzGutter="24" style="margin-bottom: 8px;">
+    <div nz-col nzMd="12" nzLg="12">
+        <button nz-button [acl]="'userAdd'" (click)="openEdit()" [nzType]="'primary'" style="margin-bottom: 8px;">
+            <i nz-icon type="plus"></i>
+            <span>新建</span>
+        </button>
+    </div>
+    <div nz-col nzMd="12" nzLg="12" class="text-right">
+        <sf #sf mode="search" [schema]="searchSchema" (formSubmit)="searchUser($event)" (formReset)="resetUser($event)"></sf>
+    </div>
+  </div>
+  <nz-table #userTable [nzData]="userData" nzSize="middle" [nzPageIndex]="pi" [nzPageSize]="ps"  [nzTotal]="total" [nzShowTotal]="totalTemplate" (nzPageIndexChange)="pageIndexChange($event)" [nzFrontPagination]=false>
+    <thead>
+      <tr>
+        <th class="text-center">序号</th>
+        <th>登录名</th>
+        <th>昵称</th>
+        <th>邮箱</th>
+        <th>电话</th>
+        <th class="text-center">状态</th>
+        <th class="text-center">注册时间</th>
+        <th class="text-center">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template #totalTemplate let-total>
+          共 {{total}} 条
+      </ng-template>
+      <tr *ngFor="let item of userTable.data; let i = index">
+          <td class="text-center">{{i + 1}}</td>
+          <td>{{item.login}}</td>
+          <td>{{item.nickName}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.telephone}}</td>
+          <td *ngIf="item.activated" class="text-center">
+            <nz-tag [nzColor]="'#87d068'" (click)="onActivate(item)">已激活</nz-tag>
+          </td>
+          <td *ngIf="!item.activated" class="text-center">
+              <nz-tag [nzColor]="'#f50'" (click)="onActivate(item)">未激活</nz-tag>
+            </td>
+          <td class="text-center">{{item.createdDate | date:'yyyy年MM月dd日 HH:mm'}}</td>
+          <td class="text-center">
+            <a class="text-gold-light" (click)="openView(item)"><i nz-icon type="eye" theme="outline"></i>查看</a><nz-divider nzType="vertical"></nz-divider>
+            <a class="text-blue-light" [acl]="'userEdit'" (click)="openEdit(item)"><i nz-icon type="edit" theme="outline"></i>编辑</a><nz-divider nzType="vertical"></nz-divider>
+            <nz-popconfirm (nzOnConfirm)="delUser(item)" [nzTitle]="'确认删除此【用户】吗？'">
+              <a class="text-red-light" [acl]="'userDel'" nz-popconfirm><i nz-icon type="delete" theme="outline"></i>删除</a>
+            </nz-popconfirm>
+          </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

@@ -5,6 +5,11 @@ export const Urls = {
 
     login: host + '/authenticate', // 用户登录接口
 
+    userList: host + '/userList', // 获取用户列表接口
+    userSearch: host + '/userSearch', // 搜索用户接口
+    userRegister: host + '/register', // 用户注册接口
+    users: host + '/users', // 用户操作接口(修改、删除)
+
     menuTreeList: host + '/menuTreeList', // 获取菜单列表树形数据接口
     menuTree: host + '/menuTree', // 获取菜单树结构接口
     menuSearch: host + '/menuSearch', // 搜索菜单接口

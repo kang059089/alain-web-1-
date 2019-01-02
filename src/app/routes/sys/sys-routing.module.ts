@@ -6,14 +6,16 @@ import { SysOrgComponent } from './org/org.component';
 import { SysDictComponent } from './dict/dict.component';
 import { SysAclComponent } from './acl/acl.component';
 import { SysRoleComponent } from './role/role.component';
+import { SysUserComponent } from './user/user.component';
 
 const routes: Routes = [
 
+  { path: 'user', component: SysUserComponent, canActivate: [ ACLGuard ], data: { guard: 'user' } },
   { path: 'menu', component: SysMenuComponent, canActivate: [ ACLGuard ], data: { guard: 'menu' } },
   { path: 'org', component: SysOrgComponent, canActivate: [ ACLGuard ], data: { guard: 'org' } },
   { path: 'dict', component: SysDictComponent, canActivate: [ ACLGuard ], data: { guard: 'dict' } },
-  { path: 'acl', component: SysAclComponent, canActivate: [ ACLGuard ], data: { guard: 'acl' } },
-  { path: 'role', component: SysRoleComponent, canActivate: [ ACLGuard ], data: { guard: 'role' } }];
+  { path: 'role', component: SysRoleComponent, canActivate: [ ACLGuard ], data: { guard: 'role' } },
+  { path: 'acl', component: SysAclComponent, canActivate: [ ACLGuard ], data: { guard: 'acl' } }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

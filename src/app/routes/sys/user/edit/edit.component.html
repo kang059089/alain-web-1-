@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <div class="modal-title">{{ title }}</div>
+</div>
+<!-- <nz-spin *ngIf="!i" class="modal-spin"></nz-spin> -->
+<sf #sf mode="edit" [schema]="schema" [formData]="userParam.user" button="none">
+<ng-template sf-template="roles" let-me let-ui="ui" let-schema="schema">
+  <nz-tree-select
+    [nzNodes]="userParam.roleTree"
+    nzShowSearch
+    nzCheckable
+    [(ngModel)]="roles"
+    (ngModelChange)="onRoleIdChange($event)">
+  </nz-tree-select>
+</ng-template>
+<ng-template sf-template="orgs" let-me let-ui="ui" let-schema="schema">
+    <nz-tree-select
+      [nzNodes]="userParam.orgTree"
+      nzShowSearch
+      nzCheckable
+      [(ngModel)]="orgs"
+      (ngModelChange)="onOrgIdChange($event)">
+    </nz-tree-select>
+  </ng-template>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+  <button nzClassName="save" nz-button type="submit" [nzType]="'primary'" [nzLoading]="isLoading" (click)="save(sf.value)" [disabled]="!sf.valid">保存</button>
+</div>
+  

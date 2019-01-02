@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <div class="modal-title">查看 {{ title }}</div>
+</div>
+<div sv-container *ngIf="userParam" col="2" labelWidth="150" style="padding-bottom: 38px;">
+  <sv label="登录名">{{ userParam.user.login }}</sv>
+  <sv label="昵称">{{ userParam.user.nickName }}</sv>
+</div>
+<div sv-container *ngIf="userParam" col="2" labelWidth="150" style="padding-bottom: 38px;">
+  <sv label="真名">{{ userParam.user.realName }}</sv>
+  <sv label="邮箱">{{ userParam.user.email }}</sv>
+</div>
+<div sv-container *ngIf="userParam.user.roleDTOS" col="2" labelWidth="150" style="padding-bottom: 38px;">
+  <sv label="角色"><div *ngFor="let role of userParam.user.roleDTOS">{{ role.name }}</div></sv>
+  <sv label="机构">{{ userParam.user.orgs }}</sv>
+</div>
+<div sv-container *ngIf="userParam" col="2" labelWidth="150" style="padding-bottom: 38px;">
+  <sv label="修改人">{{ userParam.user.lastModifiedBy }}</sv>
+  <sv label="修改时间">{{ userParam.user.lastModifiedDate | date:'yyyy年MM月dd日 HH:mm'}}</sv>
+</div>
+<div class="modal-footer">
+  <button nz-button type="button" (click)="close()">关闭</button>
+</div>
