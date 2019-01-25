@@ -42,7 +42,7 @@ export class SysUserComponent implements OnInit {
       dsc: {
         type: 'string',
         title: '',
-        ui: { placeholder: '用户名称' }
+        ui: { placeholder: '登录名、电话' }
       }
     }
   };
@@ -117,6 +117,23 @@ export class SysUserComponent implements OnInit {
     }, (error: any) => {
       this.onError(error, '删除失败');
     });
+  }
+
+  // 在用户列表中搜索（通过登录名或电话号码）
+  searchUser(event: any) {
+    const item = event.dsc ? event.dsc : event;
+    const pageParam: PageParam = { page: this.pi, size: this.ps };
+    this.http.get(this.apiUrl.userSearch + '/' + item, pageParam).subscribe((res: any) => {
+      this.userData = res.list;
+      this.total = res.total;
+    }, (error: any) => {
+      this.onError(error);
+    });
+  }
+
+  // 重置用户列表
+  resetUser(event: any) {
+    this.getData();
   }
 
   // 改变用户状态
