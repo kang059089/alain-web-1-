@@ -29,7 +29,18 @@ export class SysUserEditComponent implements OnInit {
   @ViewChild('sf') sf: SFComponent;
   schema: SFSchema = {
     properties: {
-      login: { type: 'string', title: '登录名', maxLength: 50, ui: { grid: { span: 12 } } },
+      login: {
+        type: 'string',
+        title: '登录名',
+        maxLength: 16,
+        ui: {
+          grid: { span: 12 },
+          validator: (value: any) => {
+            const pattern = (/^[a-zA-Z][a-zA-Z0-9]{3,15}$/);
+            return pattern.test(value) === true ? [] : [{ keyword: 'required', message: '以字母开头的6~16位字母、数字。'}];
+          }
+        }
+      },
       password: {
         type: 'string',
         title: '密码',
@@ -37,9 +48,7 @@ export class SysUserEditComponent implements OnInit {
           type: 'password',
           grid: { span: 12 },
           validator: (value: any) => {
-            console.log(value);
             const pattern = (/^[a-zA-Z]\w{5,17}$/);
-            console.log(pattern.test(value));
             return pattern.test(value) === true ? [] : [{ keyword: 'required', message: '以字母开头的6~18位字母、数字和下划线。'}];
           }
         }
