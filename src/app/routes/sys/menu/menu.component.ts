@@ -180,12 +180,17 @@ export class SysMenuComponent implements OnInit {
 
   // 重置菜单列表
   resetMenu(event: any) {
-    this.getData();
+    this.pi = 0;
+    this.pageIndexChange(this.pi);
   }
 
   // 当前页码改变时的回调函数
   pageIndexChange(pi: number) {
-    const pageParam: PageParam = { page: pi - 1, size: this.ps };
+    if (pi !== 0) {
+      this.pi = pi;
+      pi =  pi - 1;
+    }
+    const pageParam: PageParam = { page: pi, size: this.ps };
     this.http.get(this.apiUrl.menuTreeNode, pageParam).subscribe((res: any) => {
       this.menuTreeListData = res.list;
       this.total = res.total;
