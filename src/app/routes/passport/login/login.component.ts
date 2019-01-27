@@ -15,6 +15,7 @@ import { environment } from '@env/environment';
 import { StartupService } from '@core/startup/startup.service';
 import { Urls } from 'app/util/url';
 import { ACLService } from '@delon/acl';
+import { CacheService } from '@delon/cache';
 
 @Component({
   selector: 'passport-login',
@@ -67,7 +68,7 @@ export class UserLoginComponent implements OnDestroy {
   ) {
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z0-9]{3,15}$/)]],
-      // Validators.pattern(/^[a-zA-Z0-9]{4,10}$/)
+      // Validators.pattern(/^[a-zA-Z]\w{5,17}$/)
       password: [null, [Validators.required]],
       mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
       captcha: [null, [Validators.required]],
