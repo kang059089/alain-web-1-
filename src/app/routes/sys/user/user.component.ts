@@ -100,7 +100,7 @@ export class SysUserComponent implements OnInit {
         if (user.id) {
           user = Object.assign(user, res);
         } else {
-         this.getData();
+        this.pageIndexChange(this.pi);
         }
       }
     );
@@ -133,7 +133,22 @@ export class SysUserComponent implements OnInit {
 
   // 重置用户列表
   resetUser(event: any) {
-    this.getData();
+    this.pi = 0;
+    this.pageIndexChange(this.pi);
+    // this.getData();
+  }
+
+  // 当前页码改变时的回调函数
+  pageIndexChange(pi: number) {
+    if (pi !== 0) {
+      this.pi = pi;
+      pi =  pi - 1;
+    }
+    const pageParam: PageParam = { page: pi, size: this.ps };
+    this.http.get(this.apiUrl.userList, pageParam).subscribe((res: any) => {
+      this.userData = res.list;
+      this.total = res.total;
+    });
   }
 
   // 改变用户状态

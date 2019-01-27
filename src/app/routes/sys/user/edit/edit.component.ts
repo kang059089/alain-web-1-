@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NzModalRef, NzMessageService } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
 import { Urls } from 'app/util/url';
-import { SFComponent, SFSchema } from '@delon/form';
+import { SFComponent, SFSchema, PropertyGroup } from '@delon/form';
 
 @Component({
   selector: 'app-sys-user-edit',
@@ -20,14 +20,42 @@ export class SysUserEditComponent implements OnInit {
   isLoading: any; // 加载状态
   roles: any[] = []; // 选择的角色
   orgs: any[] = []; // 选择的组织机构
+  roleValid: any = true; // 控制是否隐藏role的提示以及校验role的值
+  roleTip: string; // role的提示信息
+  orgValid: any = true; // 控制是否隐藏org的提示以及校验org的值
+  orgTip: string; // org的提示信息
 
   // sf配置
   @ViewChild('sf') sf: SFComponent;
   schema: SFSchema = {
     properties: {
       login: { type: 'string', title: '登录名', maxLength: 50, ui: { grid: { span: 12 } } },
-      password: { type: 'string', title: '密码', ui: { type: 'password', grid: { span: 12 } } },
-      roles: { type: 'string', title: '角色', ui: { widget: 'custom', grid: { span: 12 } } },
+      password: {
+        type: 'string',
+        title: '密码',
+        ui: {
+          type: 'password',
+          grid: { span: 12 },
+          validator: (value: any) => {
+            console.log(value);
+            const pattern = (/^[a-zA-Z]\w{5,17}$/);
+            console.log(pattern.test(value));
+            return pattern.test(value) === true ? [] : [{ keyword: 'required', message: '以字母开头的6~18位字母、数字和下划线。'}];
+          }
+        }
+      },
+      roles: {
+        type: 'string',
+        title: '角色',
+        ui: {
+          widget: 'custom',
+          grid: { span: 12 },
+          // validator: (value: any, form: PropertyGroup) => {
+          //   console.log(value);
+          //   return value != null ? [] : [{ keyword: 'required', message: '请选择角色'}];
+          // }
+        }
+      },
       orgs: { type: 'string', title: '所属机构', ui: { widget: 'custom', grid: { span: 12 } } },
       email: { type: 'string', title: '邮箱', ui: { grid: { span: 12 } } },
       telephone: { type: 'string', title: '手机号码', ui: { grid: { span: 12 } } },
@@ -66,12 +94,29 @@ export class SysUserEditComponent implements OnInit {
 
   // 选择角色回调函数
   onRoleIdChange(event: any) {
+    console.log(this.sf.value);
     this.roles = event;
+    // if (this.roles.length <= 0) {
+    //   this.roleTip = '请选择角色';
+    //   this.roleValid = false;
+    // } else {
+    //   this.roleValid = true;
+    // }
+    // console.log(this.roleValid);
+    // console.log(this.orgValid);
   }
 
   // 选择组织机构回调函数
   onOrgIdChange(event: any) {
     this.orgs = event;
+    if (this.orgs.length <= 0) {
+      this.orgTip = '请选择所属机构';
+      this.orgValid = false;
+    } else {
+      this.orgValid = true;
+    }
+    console.log(this.roleValid);
+    console.log(this.orgValid);
   }
 
   // 保存用户或编辑用户信息
