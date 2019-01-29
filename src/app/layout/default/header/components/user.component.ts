@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
+import { StaticUrls } from 'app/util/staticUrl';
 
 @Component({
   selector: 'header-user',
@@ -36,7 +37,7 @@ export class HeaderUserComponent {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
   ) {
     if (settings.user.imageUrl !== null && settings.user.imageUrl !== '') {
-      this.avatar = settings.user.imageUrl;
+      this.avatar = StaticUrls.avatars + settings.user.imageUrl;
     }
   }
 

@@ -31,6 +31,7 @@ const routes: Routes = [
       // 业务子模块
       // { path: 'widgets', loadChildren: './widgets/widgets.module#WidgetsModule' }
       { path: 'sys', loadChildren: './sys/sys.module#SysModule', canActivate: [ ACLGuard ], data: { guard: 'sys' } },
+      { path: 'per', loadChildren: './per/per.module#PerModule', canActivate: [ ACLGuard ], data: { guard: 'per' } },
     ]
   },
   // 全屏布局
