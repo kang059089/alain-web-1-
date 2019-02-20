@@ -62,6 +62,21 @@ const APPINIT_PROVIDES = [
 ];
 // #endregion
 
+// #region Fundebug Service
+import { ErrorHandler } from '@angular/core';
+import * as fundebug from 'fundebug-javascript';
+fundebug.apikey = '1751a319f50b22c856d55e59a96c567f68426c2f2fe031b629478cc4c6af552f';
+// 定义FundebugErrorHandler
+export class FundebugErrorHandler implements ErrorHandler {
+  handleError(err: any): void {
+    fundebug.notifyError(err);
+  }
+}
+const FUNDEBUG_PROVIDES = [
+  { provide: ErrorHandler, useClass: FundebugErrorHandler },
+];
+// #endregion
+
 import { DelonModule } from './delon.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -88,7 +103,8 @@ import { LayoutModule } from './layout/layout.module';
   providers: [
     ...LANG_PROVIDES,
     ...INTERCEPTOR_PROVIDES,
-    ...APPINIT_PROVIDES
+    ...APPINIT_PROVIDES,
+    ...FUNDEBUG_PROVIDES
   ],
   bootstrap: [AppComponent]
 })
