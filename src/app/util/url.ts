@@ -34,5 +34,7 @@ export const Urls = {
     roles: host + '/roles', // 角色操作接口(增加、修改、删除)
 
     upLoad: host + '/upLoad', // 上传头像接口
+    checkCurrentPassword: host + '/account/check-CurrentPassword', // 校验当前密码接口（判断当前密码与原密码是否一致）
+    changePassword: host + '/account/change-password', // 用户修改密码接口
 
 };

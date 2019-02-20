@@ -7,8 +7,10 @@
   <nz-tree-select
     [nzNodes]="userParam.roleTree"
     nzShowSearch
-    nzCheckable
+    [nzDefaultExpandAll]="true"
     [(ngModel)]="roles"
+    [nzMultiple]="true"
+    [nzDropdownStyle]="{'max-height': '300px'}"
     (ngModelChange)="onRoleIdChange($event)">
   </nz-tree-select>
 </ng-template>
@@ -17,7 +19,9 @@
       [nzNodes]="userParam.orgTree"
       nzShowSearch
       nzCheckable
+      [nzDefaultExpandAll]="true"
       [(ngModel)]="orgs"
+      [nzDropdownStyle]="{'max-height': '300px'}"
       (ngModelChange)="onOrgIdChange($event)">
     </nz-tree-select>
   </ng-template>

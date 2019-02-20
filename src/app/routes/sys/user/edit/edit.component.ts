@@ -93,11 +93,15 @@ export class SysUserEditComponent implements OnInit {
     if (!this.userParam.user.id) {
       this.title = '新增 用户';
     } else {
+      console.log(this.userParam);
       this.title = '编辑 ' + this.userParam.user.login;
       this.userParam.user.roles.forEach(element => {
         this.roles.push(element + '');
       });
       this.userParam.user.password = '888888';
+      this.userParam.user.orgs.forEach(element => {
+        this.orgs.push(element + '');
+      });
     }
   }
 
@@ -118,14 +122,14 @@ export class SysUserEditComponent implements OnInit {
   // 选择组织机构回调函数
   onOrgIdChange(event: any) {
     this.orgs = event;
-    if (this.orgs.length <= 0) {
-      this.orgTip = '请选择所属机构';
-      this.orgValid = false;
-    } else {
-      this.orgValid = true;
-    }
-    console.log(this.roleValid);
-    console.log(this.orgValid);
+    // if (this.orgs.length <= 0) {
+    //   this.orgTip = '请选择所属机构';
+    //   this.orgValid = false;
+    // } else {
+    //   this.orgValid = true;
+    // }
+    // console.log(this.roleValid);
+    // console.log(this.orgValid);
   }
 
   // 保存用户或编辑用户信息

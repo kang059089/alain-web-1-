@@ -3,11 +3,16 @@ import { SharedModule } from '@shared/shared.module';
 import { PerRoutingModule } from './per-routing.module';
 import { PerSetComponent } from './set/set.component';
 import { PerSetBaseComponent } from './set/base/base.component';
+import { PerSetSecurityComponent } from './set/security/security.component';
+import { PerSetSecurityEditComponent } from './set/security/edit/edit.component';
 
 const COMPONENTS = [
   PerSetComponent,
-  PerSetBaseComponent];
-const COMPONENTS_NOROUNT = [];
+  PerSetBaseComponent,
+  PerSetSecurityComponent];
+const COMPONENTS_NOROUNT = [
+  PerSetSecurityEditComponent
+];
 
 @NgModule({
   imports: [
