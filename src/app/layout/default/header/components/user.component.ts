@@ -11,7 +11,7 @@ import { CacheService } from '@delon/cache';
   <nz-dropdown nzPlacement="bottomRight">
     <div class="alain-default__nav-item d-flex align-items-center px-sm" nz-dropdown>
       <nz-avatar [nzSrc]="avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{settings.user.lastName}}
+      {{settings.user.nickName}}
     </div>
     <div nz-menu class="width-sm">
       <div nz-menu-item routerLink="/pro/account/center"><i nz-icon type="user" class="mr-sm"></i>
