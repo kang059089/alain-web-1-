@@ -11,6 +11,7 @@ import { NzIconService } from 'ng-zorro-antd';
 import { ICONS_AUTO } from '../../../style-icons-auto';
 import { ICONS } from '../../../style-icons';
 import { Urls } from 'app/util/url';
+import { CacheService } from '@delon/cache';
 
 /**
  * 用于应用启动时
@@ -26,7 +27,8 @@ export class StartupService {
     private titleService: TitleService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private httpClient: HttpClient,
-    private injector: Injector
+    private injector: Injector,
+    private srv: CacheService
   ) {
     iconSrv.addIcon(...ICONS_AUTO, ...ICONS);
   }
@@ -48,7 +50,10 @@ export class StartupService {
       // 用户信息：包括姓名、头像、邮箱地址
       // this.settingService.setUser(res.user);
       // ACL：设置权限为全量
-      this.aclService.setFull(true);
+      // tslint:disable-next-line:max-line-length
+      // const acls = ['sys', 'sysset', 'user', 'userAdd', 'userEdit', 'userDel', 'menu', 'menuAdd', 'menuEdit', 'menuDel', 'org', 'orgAdd', 'orgEdit', 'orgDel', 'dict', 'dictAdd', 'dictEdit', 'dictDel', 'dictTypeAdd', 'dictTypeEdit', 'dictTypeDel', 'role', 'acl', 'per', 'perset', 'sys', 'sysset', 'user', 'menu', 'menuAdd', 'menuEdit', 'menuDel', 'org', 'orgAdd', 'orgEdit', 'orgDel'];
+      this.aclService.setFull(false);
+      this.aclService.setRole(res.acls);
       // 初始化菜单
       this.menuService.add(res.menuList);
       // 设置页面标题的后缀

@@ -65,6 +65,7 @@ export class UserLoginComponent implements OnDestroy {
     @Inject(DA_SERVICE_TOKEN) private tokenService: TokenService,
     private startupSrv: StartupService,
     public http: _HttpClient,
+    private srv: CacheService
   ) {
     this.form = fb.group({
       userName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z0-9]{3,15}$/)]],
@@ -162,12 +163,10 @@ export class UserLoginComponent implements OnDestroy {
         // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
         this.startupSrv.load().then(() => {
           // ACL：设置权限为全量
-        this.aclService.setFull(true);
+        // this.aclService.setFull(true);
         // this.aclService.setFull(false);
-        // this.aclService.set({ role: ['nav', 'forecast', 'dataManagement', 'systemManage', 'systemSetup',
-        // 'dashboard', 'loadForecasting', 'loadCorrection', 'loadQuery'
-        // ] });
-          this.router.navigate(['/']);
+        // this.aclService.setRole(roles);
+        this.router.navigate(['/']);
         });
       }, (error) => {
         console.log(error);

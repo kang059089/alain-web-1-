@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SettingsService } from '@delon/theme';
 import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
 import { StaticUrls } from 'app/util/staticUrl';
+import { CacheService } from '@delon/cache';
 
 @Component({
   selector: 'header-user',
@@ -35,6 +36,7 @@ export class HeaderUserComponent {
     public settings: SettingsService,
     private router: Router,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+    private srv: CacheService,
   ) {
     if (settings.user.imageUrl !== null && settings.user.imageUrl !== '') {
       this.avatar = StaticUrls.avatars + settings.user.imageUrl;
@@ -43,6 +45,7 @@ export class HeaderUserComponent {
 
   logout() {
     this.tokenService.clear();
+    this.srv.clear();
     this.router.navigateByUrl(this.tokenService.login_url);
   }
 }
