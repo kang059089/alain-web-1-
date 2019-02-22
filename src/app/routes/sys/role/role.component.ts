@@ -32,7 +32,7 @@ export class SysRoleComponent implements OnInit {
   defaultCheckedKeys: any;
 
   @ViewChild('aclTreeCom') aclTreeCom;
-
+  @ViewChild('roleTreeCom') roleTreeCom;
   constructor(
     private http: _HttpClient,
     private fb: FormBuilder,
@@ -52,25 +52,29 @@ export class SysRoleComponent implements OnInit {
     // 获取左侧角色树
     this.http.get(this.apiUrl.roleTree).subscribe((res: any) => {
       this.roleTreeData = res;
-      // 默认显示角色树第一个角色的信息
-      this.isShow = true;
-      this.title = '编辑 ' + this.roleTreeData[0].title + ' 角色信息';
-      this.validateForm.setValue({
-        id: this.roleTreeData[0].key,
-        name : this.roleTreeData[0].title,
-        acl: this.roleTreeData[0].acl,
-      });
     });
     // 获取权限树
     this.http.get(this.apiUrl.aclTree).subscribe((res: any) => {
       this.aclTreeData = res;
-      // 第一个角色拥有权限
-      this.defaultCheckedKeys = this.roleTreeData[0].acl;
+      // 获取角色树默认显示第一个角色树的编辑信息
+      setTimeout(() => {
+        this.node = this.roleTreeCom.getTreeNodes()[0];
+        this.isShow = true;
+        this.title = '编辑 ' + this.node.title + ' 角色信息';
+        this.validateForm.setValue({
+          id: this.node.origin.key,
+          name : this.node.origin.title,
+          acl: this.node.origin.acl,
+        });
+        // 第一个角色拥有权限
+        this.defaultCheckedKeys = this.node.origin.acl;
+      }, 1);
     });
   }
 
   // 新增、编辑角色
   roleEdit(event: any) {
+    console.log(event);
     this.isShow = true;
     if (!event || !event.node) {
       this.title = '新增角色';
@@ -83,6 +87,7 @@ export class SysRoleComponent implements OnInit {
       this.validateForm.reset();
       this.defaultCheckedKeys = [];
     } else {
+      // this.node = event.node;
       this.title = '编辑 ' + event.node.origin.title + ' 角色信息';
       this.validateForm.setValue({
         id: event.node.origin.key,
@@ -95,7 +100,7 @@ export class SysRoleComponent implements OnInit {
 
   // 保存新增角色或编辑角色
   save(event: any, value: any) {
-    this.isLoading = true;
+    // this.isLoading = true;
     let acl = '';
     // 获取组件 checkBox 被点击选中的节点，将所选中的acl拼成字符串
     this.aclTreeCom.getCheckedNodeList().forEach(element => {

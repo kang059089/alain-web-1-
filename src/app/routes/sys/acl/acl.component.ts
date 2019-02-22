@@ -50,14 +50,13 @@ export class SysAclComponent implements OnInit {
   getData() {
     this.http.get(this.apiUrl.aclMenuTree).subscribe((res: any) => {
       this.aclTreeData = res;
-      // 默认显示权限树第一个权限的信息
+      // 获取权限树默认显示第一个权限的信息
       setTimeout(() => {
+        this.isShowView = true;
+        this.isShowEdit = !this.isShowView;
         this.activedNode = this.aclTreeCom.getTreeNodes()[0];
+        this.title = '查看 ' + this.activedNode.title;
       }, 1);
-      this.isShowView = true;
-      this.isShowEdit = !this.isShowView;
-      this.title = '查看 ' + this.activedNode.title;
-
     });
   }
 
