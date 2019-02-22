@@ -52,10 +52,20 @@ export class SysRoleComponent implements OnInit {
     // 获取左侧角色树
     this.http.get(this.apiUrl.roleTree).subscribe((res: any) => {
       this.roleTreeData = res;
+      // 默认显示角色树第一个角色的信息
+      this.isShow = true;
+      this.title = '编辑 ' + this.roleTreeData[0].title + ' 角色信息';
+      this.validateForm.setValue({
+        id: this.roleTreeData[0].key,
+        name : this.roleTreeData[0].title,
+        acl: this.roleTreeData[0].acl,
+      });
     });
     // 获取权限树
     this.http.get(this.apiUrl.aclTree).subscribe((res: any) => {
       this.aclTreeData = res;
+      // 第一个角色拥有权限
+      this.defaultCheckedKeys = this.roleTreeData[0].acl;
     });
   }
 
@@ -93,6 +103,7 @@ export class SysRoleComponent implements OnInit {
     });
     value.acl = acl.length > 0 ? acl.substr(0, acl.length - 1) : acl;
     if (value.id) {
+      console.log(this.node);
       value.pid = this.node.origin.pid;
       this.http.put(this.apiUrl.roles, value).subscribe((res: any) => {
         this.onSuccess(res, '修改成功', event);
