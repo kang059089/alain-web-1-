@@ -61,7 +61,8 @@ export class PerSetComponent implements AfterViewInit, OnDestroy {
   // 跳转页面
   to(item: any) {
     // 通过路由跳转页面
-    this.router.navigateByUrl(`/per/set/${item.key}`);
+    const key = this.router.url.substr(0, this.router.url.lastIndexOf('/') + 1);
+    this.router.navigateByUrl( key + `${item.key}` );
   }
 
   // 组件相应的视图大小调整
