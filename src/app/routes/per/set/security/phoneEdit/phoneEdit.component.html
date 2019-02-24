@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <div class="modal-title">手机绑定</div>
+</div>
+<sf #sf mode="edit" [schema]="schema" button="none">
+    <ng-template sf-template="telephone" let-me let-ui="ui" let-schema="schema">
+        <ng-container *ngIf="!editPhone">
+            <strong>{{phone}}</strong>&nbsp;&nbsp;
+            <a (click)="changePhone()">更换手机</a>
+        </ng-container>
+        <ng-container *ngIf="editPhone">
+            <input type="text" [(ngModel)]="newPhone" (ngModelChange)="getNewPhone($event)" nz-input>
+            <a [hidden]="newPhoneValid" style="color: rgb(245, 34, 45);">{{newPhoneTip}}</a>
+        </ng-container>
+    </ng-template>
+    <ng-template sf-template="captcha" let-me let-ui="ui" let-schema="schema">
+        <ng-container>
+            <input type="text" style="width: 78%;" [(ngModel)]="captcha" nz-input>&nbsp;&nbsp;
+            <button type="button" style="width: 20%;" nz-button (click)="getCaptcha()" [disabled]="count" nzBlock>
+                {{ count ? count + '秒后重新获取' : '获取验证码'}}
+            </button>
+        </ng-container>
+    </ng-template>
+<div class="modal-footer">
+    <button nz-button type="button" (click)="close()">关闭</button>
+    <button nzClassName="save" nz-button type="submit" [nzType]="'primary'" [nzLoading]="isLoading" (click)="save()" [disabled]="!(newPhoneValid && captcha)">保存</button>
+</div>

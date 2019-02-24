@@ -108,7 +108,6 @@ export class SysRoleComponent implements OnInit {
     });
     value.acl = acl.length > 0 ? acl.substr(0, acl.length - 1) : acl;
     if (value.id) {
-      console.log(this.node);
       value.pid = this.node.origin.pid;
       this.http.put(this.apiUrl.roles, value).subscribe((res: any) => {
         this.onSuccess(res, '修改成功', event);

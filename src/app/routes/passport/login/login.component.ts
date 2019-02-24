@@ -71,7 +71,7 @@ export class UserLoginComponent implements OnDestroy {
       userName: [null, [Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z0-9]{3,15}$/)]],
       // Validators.pattern(/^[a-zA-Z]\w{5,17}$/)
       password: [null, [Validators.required]],
-      mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
+      mobile: [null, [Validators.required, Validators.pattern(/^1[34578]\d{9}$/)]],
       captcha: [null, [Validators.required]],
       remember: [true],
     });

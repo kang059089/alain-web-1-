@@ -36,5 +36,7 @@ export const Urls = {
     upLoad: host + '/upLoad', // 上传头像接口
     checkCurrentPassword: host + '/account/check-CurrentPassword', // 校验当前密码接口（判断当前密码与原密码是否一致）
     changePassword: host + '/account/change-password', // 用户修改密码接口
+    sendSms: host + '/sendSms', // 向用户发送短信接口
+    changePhone: host + '/account/change-phone', // 绑定新手机号码接口
 
 };
