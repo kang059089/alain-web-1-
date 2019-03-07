@@ -36,7 +36,7 @@ export class PerSetSecurityComponent implements OnInit  {
       ).subscribe(([res]: any) => {
         this.user = res;
         this.passwordState = this.user.passwordState;
-        this.phone = this.user.telephone.replace(/^(\d{3})\d{4}(\d+)/, '$1****$2');
+        this.phone = this.user.telephone === null ? null : this.user.telephone.replace(/^(\d{3})\d{4}(\d+)/, '$1****$2');
         this.userLoading = false;
         this.cdr.detectChanges();
       });
