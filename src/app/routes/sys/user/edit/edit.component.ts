@@ -67,10 +67,20 @@ export class SysUserEditComponent implements OnInit {
       },
       orgs: { type: 'string', title: '所属机构', ui: { widget: 'custom', grid: { span: 12 } } },
       email: { type: 'string', title: '邮箱', ui: { grid: { span: 12 } } },
-      telephone: { type: 'string', title: '手机号码', ui: { grid: { span: 12 } } },
+      telephone: {
+        type: 'string',
+        title: '手机号码',
+        ui: {
+          grid: { span: 12 },
+          validator: (value: any) => {
+            const pattern = (/^1[34578]\d{9}$/);
+            return pattern.test(value) === true ? [] : [{ keyword: 'required', message: '手机号码格式有误。'}];
+          }
+        }
+      },
       activated: { type: 'boolean', title: '激活', ui: { checkedChildren: '已激活', unCheckedChildren: '未激活' } }
     },
-    required: ['login', 'password', 'email'],
+    required: ['login', 'password', 'email', 'telephone'],
     ui: {
       spanLabelFixed: 120,
       grid: { span: 24 },

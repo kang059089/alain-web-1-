@@ -5,6 +5,7 @@ import { Urls } from 'app/util/url';
 import { zip } from 'rxjs';
 import { PerSetSecurityAccountEditComponent } from './accountEdit/accountEdit.component';
 import { PerSetSecurityPhoneEditComponent } from './phoneEdit/phoneEdit.component';
+import { PerSetSecurityEmailEditComponent } from './emailEdit/emailEdit.component';
 
 @Component({
   selector: 'app-per-set-security',
@@ -20,6 +21,7 @@ export class PerSetSecurityComponent implements OnInit  {
   user: any; // 用户信息
   passwordState: any = 0; // 密码强度（0：弱；1：中；2：强）
   phone: any; // 用户绑定的手机号码
+  email: any; // 用户绑定的邮箱
 
   constructor(
     private http: _HttpClient,
@@ -37,6 +39,7 @@ export class PerSetSecurityComponent implements OnInit  {
         this.user = res;
         this.passwordState = this.user.passwordState;
         this.phone = this.user.telephone === null ? null : this.user.telephone.replace(/^(\d{3})\d{4}(\d+)/, '$1****$2');
+        this.email = this.user.email === null ? null : this.user.email.replace(/(.{2}).+(.{2}@.+)/g, '$1****$2');
         this.userLoading = false;
         this.cdr.detectChanges();
       });
@@ -65,7 +68,7 @@ export class PerSetSecurityComponent implements OnInit  {
     );
   }
 
-  // 绑定手机
+  // 修改、绑定手机
   editPhone() {
     // 向绑定手机编辑页面传递用户手机参数
     const telephone =  this.user.telephone;
@@ -73,6 +76,18 @@ export class PerSetSecurityComponent implements OnInit  {
       .createStatic(PerSetSecurityPhoneEditComponent, {telephone})
       .subscribe(res => {
         console.log(res);
+      });
+  }
+
+  // 修改、绑定邮箱
+  editEmail() {
+    // 向绑定邮箱编辑页面传递用户邮箱参数
+    const email = this.user.email;
+    this.modal
+      .createStatic(PerSetSecurityEmailEditComponent, {email})
+      .subscribe(res => {
+        this.email = res === null ? null : res.replace(/(.{2}).+(.{2}@.+)/g, '$1****$2');
+        this.cdr.detectChanges();
       });
   }
 }

@@ -6,6 +6,7 @@ import { PerSetBaseComponent } from './set/base/base.component';
 import { PerSetSecurityComponent } from './set/security/security.component';
 import { PerSetSecurityAccountEditComponent } from './set/security/accountEdit/accountEdit.component';
 import { PerSetSecurityPhoneEditComponent } from './set/security/phoneEdit/phoneEdit.component';
+import { PerSetSecurityEmailEditComponent } from './set/security/emailEdit/emailEdit.component';
 
 const COMPONENTS = [
   PerSetComponent,
@@ -14,6 +15,7 @@ const COMPONENTS = [
 const COMPONENTS_NOROUNT = [
   PerSetSecurityAccountEditComponent,
   PerSetSecurityPhoneEditComponent,
+  PerSetSecurityEmailEditComponent,
 ];
 
 @NgModule({

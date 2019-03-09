@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <div class="modal-title">邮箱绑定</div>
+</div>
+<sf #sf mode="edit" [schema]="schema" button="none">
+    <ng-template sf-template="email" let-me let-ui="ui" let-schema="schema">
+        <ng-container *ngIf="!editEmail">
+            <strong>{{showEmail}}</strong>&nbsp;&nbsp;
+            <a (click)="changeEmail()">更换邮箱</a>
+        </ng-container>
+        <ng-container *ngIf="editEmail">
+            <input type="text" [(ngModel)]="newEmail" (ngModelChange)="getNewEmail($event)" nz-input>
+            <a [hidden]="newEmailValid" style="color: rgb(245, 34, 45);">{{newEmailTip}}</a>
+        </ng-container>
+    </ng-template>
+    <ng-template sf-template="captcha" let-me let-ui="ui" let-schema="schema">
+        <ng-container>
+            <input type="text" style="width: 78%;" [(ngModel)]="captcha" nz-input>&nbsp;&nbsp;
+            <button type="button" style="width: 20%;" nz-button (click)="getCaptcha()" [disabled]="count" nzBlock>
+                {{ count ? count + '秒后重新获取' : '获取验证码'}}
+            </button>
+        </ng-container>
+    </ng-template>
+<div class="modal-footer">
+    <button nz-button type="button" (click)="close()">关闭</button>
+    <button nzClassName="save" nz-button type="submit" [nzType]="'primary'" [nzLoading]="isLoading" (click)="save()" [disabled]="!(newEmailValid && captcha)">保存</button>
+</div>

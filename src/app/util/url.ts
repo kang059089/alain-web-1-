@@ -38,5 +38,6 @@ export const Urls = {
     changePassword: host + '/account/change-password', // 用户修改密码接口
     sendSms: host + '/sendSms', // 向用户发送短信接口
     changePhone: host + '/account/change-phone', // 绑定新手机号码接口
-
+    sendEmail: host + '/sendEmail', // 向用户邮箱发送验证码接口
+    changeEmail: host + '/account/change-email', // 绑定新邮箱接口
 };
