@@ -42,12 +42,17 @@
       <div nz-row nzGutter="24" style="margin-bottom: 8px;">
         <form nz-form [formGroup]="validateForm" (ngSubmit)="save($event,validateForm.value)" nzLayout="horizontal">
           <nz-form-item>
-            <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="name">角色名称</nz-form-label>
-            <nz-form-control [nzSm]="6" [nzXs]="24">
+            <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="name">角色名称</nz-form-label>
+            <nz-form-control [nzSm]="4" [nzXs]="24">
               <input nz-input formControlName="name" id="name">
             </nz-form-control>
-            <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="acl">授权</nz-form-label>
-            <nz-form-control [nzSm]="10" [nzXs]="24">
+            <nz-form-label [nzSm]="3" [nzXs]="24" nzRequired nzFor="name">角色顺序</nz-form-label>
+            <nz-form-control [nzSm]="2" [nzXs]="24">
+              <nz-input-number formControlName="sort" id="sort" [nzMin]="1" [nzStep]="1"></nz-input-number>
+              <!-- <input nz-input formControlName="sort" id="sort"> -->
+            </nz-form-control>
+            <nz-form-label [nzSm]="3" [nzXs]="24" nzFor="acl">授权</nz-form-label>
+            <nz-form-control [nzSm]="9" [nzXs]="24">
               <div class="scrollbar" style="height: 455px; width: 273px; margin-top: 20px; overflow-x: hidden;">
                 <nz-tree #aclTreeCom
                   [nzData]="aclTreeData"

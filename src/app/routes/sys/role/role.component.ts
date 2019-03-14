@@ -29,7 +29,7 @@ export class SysRoleComponent implements OnInit {
   isLoading: any; // 加载状态
   node: any; // 删除、添加子项的节点
   pid: any;
-  defaultCheckedKeys: any;
+  defaultCheckedKeys: any; // 指定选中复选框的树节点
 
   @ViewChild('aclTreeCom') aclTreeCom;
   @ViewChild('roleTreeCom') roleTreeCom;
@@ -42,7 +42,8 @@ export class SysRoleComponent implements OnInit {
   ngOnInit() {
     this.validateForm = this.fb.group({
       id: [],
-      name: [ '', [ Validators.required ]],
+      name: [ '', [ Validators.required ] ],
+      sort: [ '', [ Validators.required ] ],
       acl: []
     });
     this.getData();
@@ -57,18 +58,22 @@ export class SysRoleComponent implements OnInit {
     this.http.get(this.apiUrl.aclTree).subscribe((res: any) => {
       this.aclTreeData = res;
       // 获取角色树默认显示第一个角色树的编辑信息
-      setTimeout(() => {
-        this.node = this.roleTreeCom.getTreeNodes()[0];
-        this.isShow = true;
-        this.title = '编辑 ' + this.node.title + ' 角色信息';
-        this.validateForm.setValue({
-          id: this.node.origin.key,
-          name : this.node.origin.title,
-          acl: this.node.origin.acl,
-        });
-        // 第一个角色拥有权限
-        this.defaultCheckedKeys = this.node.origin.acl;
-      }, 1);
+      this.node = this.roleTreeCom.getTreeNodes()[0];
+      this.isShow = true;
+      this.title = '编辑 ' + this.node.title + ' 角色信息';
+      this.validateForm.setValue({
+        id: this.node.origin.key,
+        name: this.node.origin.title,
+        sort: this.node.origin.sort,
+        acl: this.node.origin.acl,
+      });
+      // 第一个角色拥有权限
+      const acls = this.node.origin.acl.split(',');
+      const arrs = [];
+      acls.forEach(element => {
+        arrs.push(element);
+      });
+      this.defaultCheckedKeys = arrs;
     });
   }
 
@@ -91,7 +96,8 @@ export class SysRoleComponent implements OnInit {
       this.title = '编辑 ' + event.node.origin.title + ' 角色信息';
       this.validateForm.setValue({
         id: event.node.origin.key,
-        name : event.node.origin.title,
+        name: event.node.origin.title,
+        sort: event.node.origin.sort,
         acl: event.node.origin.acl,
       });
       this.defaultCheckedKeys = event.node.origin.acl;
@@ -147,7 +153,7 @@ export class SysRoleComponent implements OnInit {
     this.isShow = false;
     this.msgSrv.success(dsc);
     // 新建、编辑、删除成功重新获取数据
-    this.getData();
+    this.ngOnInit();
   }
 
   // 失败的回调函数
